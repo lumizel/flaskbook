@@ -4,6 +4,12 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model, UserMixin):
+    # 테이블 명 지정
+    __tablename__ = "users"
+
+    # 컬럼 정의
+    id = db.Column(db.Integer, primary_key=True)
+
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +20,8 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(
         db.DateTime, default=datetime.now, onupdate=datetime.now
     )
+
+    user_images = db.relationship('UserImage', backref='user', order_by='desc(UserImage.id)')
 
     @property
     def password(self):

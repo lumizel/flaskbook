@@ -41,9 +41,10 @@ def signup():
         #사용자 정보를 세션에 저장
         login_user(user)
         # get 파라미터에 next 키가 존재하고, 값이 없는 경우는 사용자의 알람 페이지로 리다이렉트
+        # 회원가입 완료 시의 리다이텍트 될 곳을 detectpr.index로 변경
         next_ = request.args.get('next')
         if next_ is None or not next_.startswith('/'):
-            next_ = url_for('crud.users')
+            next_ = url_for('detector.index')
         return redirect(next_)
     return render_template('auth/signup.html', form = form)
 
@@ -58,11 +59,10 @@ def login():
         # 사용자가 존재하고 비밀번호가 일치하면 로그인을 허가한다
         if user is not None and user.verify_password(form.password.data):
             login_user(user)
-            return redirect(url_for("crud.users"))
+            return redirect(url_for("detector.index"))
 
         # 로그인 실패 메시지를 설정한다
-        flash("메일 주소 또는 비밀번호가 일치하지 않습니다.")
-        
+        flash("메일 주소 또는 비밀번호가 일치하지 않습니다.") 
     return render_template("auth/login.html", form=form)
 
 @auth.route("/logout")

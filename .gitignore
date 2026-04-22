@@ -279,3 +279,7 @@ pyrightconfig.json
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/python,flask,visualstudiocode
+
+
+echo "*.pt" >> .gitignore
+echo "*.pth" >> .gitignore
